@@ -1,0 +1,49 @@
+name:       HAheui
+version:    1.0.0
+github:     "kmc7468/HAheui"
+license:    MIT
+author:     "kmc7468"
+maintainer: "kmc7468@naver.com"
+copyright:  "(C) 2018. kmc7468 All rights reserved."
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/kmc7468/HAheui#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+    source-dirs: src
+
+executables:
+    HAheui-exe:
+        main:           Main.hs
+        source-dirs:    app
+        ghc-options:
+        - -threaded
+        - -rtsopts
+        - -with-rtsopts=-N
+        - -Wall
+        dependencies:
+        - HAheui
+
+tests:
+    HAheui-test:
+        main:           Spec.hs
+        source-dirs:    test
+        ghc-options:
+        - -threaded
+        - -rtsopts
+        - -with-rtsopts=-N
+        - -Wall
+        dependencies:
+        - HAheui
