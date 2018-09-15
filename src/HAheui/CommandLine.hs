@@ -18,7 +18,6 @@ setIsUTF16BE cmdline value = CommandLine (isInterpretingMode cmdline) (sourcePat
 
 type CommandLineWrapper = (Bool, String, CommandLine)
 errorCommandLineWrapper message = (False, message, emptyCommandLine)
-emptyCommandLineWrapper = errorCommandLineWrapper []
 
 isDone :: CommandLineWrapper -> Bool
 output :: CommandLineWrapper -> String
@@ -71,7 +70,7 @@ _parseCommandLine (cmd:args) cmdline
                           \https://github.com/kmc7468/HAheui"
 
 parseCommandLine :: [String] -> CommandLineWrapper
-parseCommandLine args = _parseCommandLine args emptyCommandLineWrapper
+parseCommandLine args = _parseCommandLine args (errorCommandLineWrapper "사용법: ./HAheui --help")
 
 _checkCommandLineIsInterpretingMode :: CommandLineWrapper -> CommandLineWrapper
 _checkCommandLineIsInterpretingMode cmdline =
