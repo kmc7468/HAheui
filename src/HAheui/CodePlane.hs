@@ -1,6 +1,6 @@
 module HAheui.CodePlane(
     CodePlane,
-    getHeight, HAheui.CodePlane.getLine, getCodeFromLine, getCode,
+    makeCode, getHeight, HAheui.CodePlane.getLine, getCodeFromLine, getCode,
     Point, x, y,
     Cursor, location, dx, dy,
     moveCursor
@@ -9,6 +9,18 @@ module HAheui.CodePlane(
 data CodePlane = CodePlane {
     rawData :: [String]
 }
+
+safeInit :: [a] -> [a]
+safeInit [] = []
+safeInit lst = init lst
+
+makeCodePlaneInternal :: String -> Char -> CodePlane -> CodePlane
+makeCodePlaneInternal ('\n':other) '\r' (CodePlane code) = CodePlane ((safeInit code) ++ [safeInit $ last code] ++ (rawData $ makeCodePlaneInternal other '\n' (CodePlane [[]])))
+makeCodePlaneInternal ('\n':other) _ (CodePlane code) = CodePlane (code ++ (rawData $ makeCodePlaneInternal other '\n' (CodePlane [[]])))
+makeCodePlaneInternal (text:other) _ (CodePlane code) = makeCodePlaneInternal other text (CodePlane ((safeInit code) ++ [(last code) ++ [text]]))
+makeCodePlaneInternal [] _ code = code
+makeCode :: String -> CodePlane
+makeCode text = makeCodePlaneInternal text '\n' (CodePlane [[]])
 
 getHeightInternal :: CodePlane -> Int -> Int -> Int
 getHeightInternal code x (-1) = 0
