@@ -1,6 +1,6 @@
 module HAheui.CommandLine(
     Encoding,
-    CommandLine, emptyCommandLine,
+    CommandLine, isInterpretingMode, sourcePath, encoding, emptyCommandLine,
     setIsInterpretingMode, setSourcePath, setEncoding,
     CommandLineWrapper,
     parseCommandLine
